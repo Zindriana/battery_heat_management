@@ -1,5 +1,7 @@
 import random
 
+# This program simulates a continuosly rising of the temperature of a battery during charging
+
 # Battery: Tesla Model S/X Module - 5.3kWh / 232Ah / 22.8V
 #T_battery(t) = T_ambient + R_int ⋅ I²(t) ⋅ Δt
 
@@ -11,8 +13,6 @@ I = 1.625       # Amperes in standard operation
 
 # Battery temperature before charging starts
 T_battery = T_ambient
-
-
 
 for time in range(0, 14400): # 4 hour charging simulation (the time it takes to charge the battery)
     T_battery += R_int * I**2 * Δt
