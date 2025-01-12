@@ -1,35 +1,27 @@
-import random
-
-# This program simulates a charging of a battery with the risk of something goes wrong with the charging
+# This program simulates a continuosly rising of the temperature of a battery during charging
 
 # Battery: Tesla Model S/X Module - 5.3kWh / 232Ah / 22.8V
-# T_battery(t) = T_ambient + R_int ⋅ I²(t) ⋅ Δt
+#T_battery(t) = T_ambient + R_int ⋅ I²(t) ⋅ Δt
 
 T_ambient = 25  # Temperature in degrees Celsius
-R_int = 0.03    # Resistance in Ohm
+R_int = 0.005   # Resistance in Ohm
 T_max = 45      # Maximal battery temperature in degrees Celsius before overheating
-Δt = 1          # Time step in seconds
+#Δt = 1          # Time step in seconds
 I = 1.625       # Amperes in standard operation
 
-# Battery temperature before charging starts
-T_battery = T_ambient
-
-# a randomiser function to simulate a failure in the battery
-def I_failure(time):
-        if random.randint(1, 1000) == 1:
-            return 40
-        else:
-            return 1.625
 
 def main():
     for time in range(0, 14400): # 4 hour charging simulation (the time it takes to charge the battery)
-        T_battery = T_ambient + R_int * I_failure(time)**2 * Δt
+        T_battery = T_ambient + R_int * I**2 * time
+
         if time % 60 == 0:
-            print("Battery temperature: ", T_battery, " at time: ", time)
-        
+            print("Battery temperature: {:.2f} at time: {} minutes".format(T_battery, time/60))
+            
         if T_battery > T_max:
+            print()
             print("Warning: Critical temperature reached! Charging stopped.")
-            print("Battery temperature: ", T_battery, " at time: ", time)
+            print("Battery temperature: {:.2f} at time: {} minutes".format(T_battery, time/60))
+            print()
             break
 
 if __name__ == "__main__":
